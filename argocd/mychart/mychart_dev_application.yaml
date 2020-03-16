@@ -1,0 +1,22 @@
+# We use the same name as this are expected to run on different clusters
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mychart-dev
+  namespace: argocd
+spec:
+  destination:
+    namespace: mychart-dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: stable/mychart
+    repoURL: https://github.com/rumland/learn_helm_with_argocd.git
+    targetRevision: helm_chart_driven_by_argocd
+  syncPolicy:
+    # Auto sync in dev env
+    automated: {}
+
