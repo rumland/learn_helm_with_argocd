@@ -1,10 +1,5 @@
 version: 2.1
 
-# CircleCI Orbs Includes
-orbs:
-  aws-ecr: circleci/aws-ecr@6.5.0
-  docker: circleci/docker@0.6.0
-
 jobs:
   needful_job:
     parameters:
@@ -15,9 +10,6 @@ jobs:
         type: string
         default: ""
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - checkout
       - run:
           name: do the needful
           command: echo do the needful
