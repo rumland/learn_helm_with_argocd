@@ -54,35 +54,37 @@ workflows:
 
   # Because the tagging strategy doesn't really work; try to build on merges into the
   # base branches.
-  pipeline:
+  dev:
     jobs:
       - needful_job:
           <<: *default_deploy_app_image
-          name: dev
           conditional_env: "dev"
           filters:
             branches:
               only:
                 - preview
+  sit:
+    jobs:
       - needful_job:
           <<: *default_deploy_app_image
-          name: sit
           conditional_env: "sit"
           filters:
             branches:
               only:
                 - develop
+  pre:
+    jobs:
       - needful_job:
           <<: *default_deploy_app_image
-          name: pre
           conditional_env: "pre"
           filters:
             branches:
               only:
                 - staging
+  prd:
+    jobs:
       - needful_job:
           <<: *default_deploy_app_image
-          name: prd
           filters:
             branches:
               only:
