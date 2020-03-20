@@ -7,7 +7,6 @@ orbs:
 
 jobs:
   needful_job:
-    executor: docker/docker
     parameters:
       image_tags:
         type: string
