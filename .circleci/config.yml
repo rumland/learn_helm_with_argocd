@@ -42,6 +42,7 @@ workflows:
       # [Pull Requests] Builds App Image -> Nutrien AWS ECR [circleci-build1234]
       - needful_job:
           <<: *default_deploy_app_image
+          name: PR
           image_tags: "circleci-build$CIRCLE_BUILD_NUM"
           filters:
             branches:
