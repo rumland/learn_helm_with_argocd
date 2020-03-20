@@ -35,11 +35,8 @@ default: &default_deploy_app_image
 workflows:
   version: 2
 
-  # Make sure Pull Requests build the image, but also create unique tags aligned
-  # with the PR number
   pull_request:
     jobs:
-      # [Pull Requests] Builds App Image -> Nutrien AWS ECR [circleci-build1234]
       - needful_job:
           <<: *default_deploy_app_image
           name: PR
@@ -52,8 +49,6 @@ workflows:
                 - preview
                 - staging
 
-  # Because the tagging strategy doesn't really work; try to build on merges into the
-  # base branches.
   dev:
     jobs:
       - needful_job:
