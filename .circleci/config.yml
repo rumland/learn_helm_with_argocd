@@ -1,0 +1,91 @@
+version: 2.1
+
+# CircleCI Orbs Includes
+orbs:
+  aws-ecr: circleci/aws-ecr@6.5.0
+  docker: circleci/docker@0.6.0
+
+jobs:
+  needful_job:
+    executor: docker/docker
+    parameters:
+      image_tags:
+        type: string
+        default: ""
+      conditional_env:
+        type: string
+        default: ""
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - run:
+          name: do the needful
+          command: echo do the needful
+      - when:
+          condition: <<parameters.conditional_env>>
+          steps:
+            - run:
+                name: conditionally do the needful
+                command: echo conditionally do the needful for <<parameters.conditional_env>>
+      - unless:
+          condition: <<parameters.conditional_env>>
+          steps:
+            - run:
+                name: conditionally do the needful for prd
+                command: echo not conditionally do the needful for prd
+
+default: &default_deploy_app_image
+  name: app_image
+  image_tags: "$CIRCLE_SHA1,$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM,circleci-build$CIRCLE_BUILD_NUM"
+
+workflows:
+  version: 2
+
+  # Make sure Pull Requests build the image, but also create unique tags aligned
+  # with the PR number
+  pull_request:
+    jobs:
+      # [Pull Requests] Builds App Image -> Nutrien AWS ECR [circleci-build1234]
+      - needful_job:
+          <<: *default_deploy_app_image
+          image_tags: "circleci-build$CIRCLE_BUILD_NUM"
+          filters:
+            branches:
+              ignore:
+                - master
+                - develop
+                - preview
+                - staging
+
+  # Because the tagging strategy doesn't really work; try to build on merges into the
+  # base branches.
+  pipeline:
+    jobs:
+      - needful_job:
+          <<: *default_deploy_app_image
+          conditional_env: "dev"
+          filters:
+            branches:
+              only:
+                - preview
+      - needful_job:
+          <<: *default_deploy_app_image
+          conditional_env: "sit"
+          filters:
+            branches:
+              only:
+                - develop
+      - needful_job:
+          <<: *default_deploy_app_image
+          conditional_env: "pre"
+          filters:
+            branches:
+              only:
+                - staging
+      - needful_job:
+          <<: *default_deploy_app_image
+          filters:
+            branches:
+              only:
+                - master
