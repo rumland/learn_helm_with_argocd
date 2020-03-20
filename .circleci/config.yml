@@ -2,7 +2,8 @@ version: 2.1
 
 jobs:
   needful_job:
-    executor: docker/docker
+    docker:
+      - image: buildpack-deps:trusty
     parameters:
       image_tags:
         type: string
