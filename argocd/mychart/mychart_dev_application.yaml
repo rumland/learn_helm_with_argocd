@@ -15,7 +15,7 @@ spec:
       - values.yaml
     path: stable/mychart
     repoURL: https://github.com/rumland/learn_helm_with_argocd.git
-    targetRevision: helm_chart_driven_by_argocd
+    targetRevision: helm_getting_started
   syncPolicy:
     # Auto sync in dev env
     automated: {}
