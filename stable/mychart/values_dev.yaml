@@ -1,1 +1,3 @@
-fullnameOverride: ""
+fullnameOverride: "fullName-from-values_dev"
+
+#favoriteDrink: "coffee in morning, whiskey in afternoon"

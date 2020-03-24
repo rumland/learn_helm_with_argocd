@@ -4,3 +4,5 @@ metadata:
   name: {{ include "mychart.fullname" . }}
 data:
   myvalue: "Hello world"
+  drink: {{ .Values.favoriteDrink | default (printf "%s-tea" (include "mychart.fullname" .)) }}
+  release-drink: {{ .Values.favoriteDrink | default .Release.Name }}
