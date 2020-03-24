@@ -8,6 +8,9 @@ spec:
   destination:
     # todo: how to get `namespace` to be set dynamically and correctly based on values file?
     # todo: setting this correctly requires knowing how `fullnameOverride` is set in values file...
+    # todo: figure out why namespace specified here seems to drive all nodes under application. Yet individual nodes
+    #       themselves require an official namespace definition? Feels like an odd coupling between the helm chart
+    #       and ArgoCD...
     namespace: dev
     server: https://kubernetes.default.svc
   project: default
