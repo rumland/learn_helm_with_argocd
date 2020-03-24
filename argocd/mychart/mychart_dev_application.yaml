@@ -6,6 +6,8 @@ metadata:
   namespace: argocd
 spec:
   destination:
+    # todo: how to get `namespace` to be set dynamically and correctly based on values file?
+    # todo: setting this correctly requires knowing how `fullnameOverride` is set in values file...
     namespace: dev
     server: https://kubernetes.default.svc
   project: default
