@@ -14,7 +14,7 @@ spec:
   source:
     helm:
       valueFiles:
-      - values_dev.yaml
+      - values_dog.yaml
     path: stable/mychart
     repoURL: https://github.com/rumland/learn_helm_with_argocd.git
     targetRevision: helm_getting_started
