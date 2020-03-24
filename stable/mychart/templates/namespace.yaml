@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: mychart-dev
-
+  name: {{ include "mychart.fullname" . }}
 spec:
   finalizers:
     - kubernetes
