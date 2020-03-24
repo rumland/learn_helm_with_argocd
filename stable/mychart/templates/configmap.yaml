@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "mychart.fullname" . }}
+  name: .Release.Name
 data:
   myvalue: "Hello world"
-  drink: {{ .Values.favoriteDrink | default (printf "%s-tea" (include "mychart.fullname" .)) }}
-  release-drink: {{ .Values.favoriteDrink | default .Release.Name }}
+  drink: {{ .Values.favoriteDrink | default .Release.Name }}

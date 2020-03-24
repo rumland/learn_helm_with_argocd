@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ include "mychart.fullname" . }}
+  name: .Release.Name
 spec:
   finalizers:
     - kubernetes
