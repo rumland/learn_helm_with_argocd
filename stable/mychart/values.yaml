@@ -12,7 +12,18 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-#favoriteDrink: "coffee"
+favorite:
+  drink: "coffee"
+  food: "pizza"
+  pizzaToppings:
+    - mushrooms
+    - cheese
+    - peppers
+    - onions
+  things:
+    bike: "jones plus lwb"
+    activity: "cycling"
+    cloud: "aws"
 
 serviceAccount:
   # Specifies whether a service account should be created
