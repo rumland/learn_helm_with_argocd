@@ -16,19 +16,19 @@ data:
   mug: true
   {{- end }}
   food: {{ .food | upper | quote }}
-  toppings_list: |-
-    {{- range .pizzaToppings }}
-    - {{ . | title | quote }}
-    {{- end }}
-  toppings_object: |-
-    {{- range $index, $topping := .pizzaToppings }}
-      {{ $index }}: {{ $topping | title | quote }}
-    {{- end }}
   release: {{ $relname }}
   release_global: {{ $.Release.Name }}
   {{- end }}
-  sizes: |-
-    {{- range tuple "small" "medium" "large" }}
-    - {{ . | quote }}
-    {{- end }}
 {{ include "mychart.app" . | indent 2 }}
+  {{/* sizes: |- */}}
+  {{/* {{- range tuple "small" "medium" "large" }} */}}
+  {{/* - {{ . | quote }} */}}
+  {{/* {{- end }} */}}
+  {{/* toppings_list: |- */}}
+  {{/* {{- range .pizzaToppings }} */}}
+  {{/* - {{ . | title | quote }} */}}
+  {{/* {{- end }} */}}
+  {{/* toppings_object: |- */}}
+  {{/* {{- range $index, $topping := .pizzaToppings }} */}}
+  {{/* {{ $index }}: {{ $topping | title | quote }} */}}
+  {{/* {{- end }} */}}
