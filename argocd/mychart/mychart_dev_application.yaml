@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mychart-dev
-  namespace: argocd
+  namespace: dog
 spec:
   destination:
     # todo: how to get `namespace` to be set dynamically and correctly based on values file?
