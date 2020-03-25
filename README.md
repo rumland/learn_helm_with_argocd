@@ -17,6 +17,14 @@ $ kubectl apply -f ./argocd/mychart/mychart_dev_application.yaml
 ### Best practices
 1. Quote all strings
 1. Quote integers if going to be large. If large, YAML may convert to scientific notation
+1. Validate with the following:
+```aidl
+$ cd stable/mychart
+$ rm -rf manifests && mkdir manifests && helm template --debug --values ./values_dev.yaml --output-dir (pwd)/manifests . && cat ./manifests/mychart/templates/configmap.yaml && kubeval ./manifests/mychart/templates/configmap.yaml
+```
 
 ### Questions
 1. Where can one think of the schema definition for the values?
+
+### Useful tools
+1. [kubeval](https://kubeval.instrumenta.dev/)
