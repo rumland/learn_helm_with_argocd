@@ -3,7 +3,10 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mychart-dev
-  namespace: dog
+  # Needs to be `argocd` namespace because ArgoCD is deployed like this:
+  # $ helm install myargocd argo/argo-cd -n argocd
+  # So, k8s Application namespace _will_ be different than all namespace specifications within application
+  namespace: argocd
 spec:
   destination:
     # todo: how to get `namespace` to be set dynamically and correctly based on values file?
