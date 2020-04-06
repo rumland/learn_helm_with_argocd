@@ -3,19 +3,24 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: mychart-dev
-  namespace: argocd
+  namespace: dog
 spec:
   destination:
-    namespace: mychart-dev
+    # todo: how to get `namespace` to be set dynamically and correctly based on values file?
+    # todo: setting this correctly requires knowing how `fullnameOverride` is set in values file...
+    # todo: figure out why namespace specified here seems to drive all nodes under application. Yet individual nodes
+    #       themselves require an official namespace definition? Feels like an odd coupling between the helm chart
+    #       and ArgoCD...
+    namespace: dev
     server: https://kubernetes.default.svc
   project: default
   source:
     helm:
       valueFiles:
-      - values.yaml
+      - values_dev.yaml
     path: stable/mychart
     repoURL: https://github.com/rumland/learn_helm_with_argocd.git
-    targetRevision: helm_chart_driven_by_argocd
+    targetRevision: helm_getting_started
   syncPolicy:
     # Auto sync in dev env
     automated: {}

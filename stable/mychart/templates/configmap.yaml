@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mychart.fullname" . }}
+  namespace: "dog"
+  {{- template "mychart.labels" . }}
+{{ include "mychart.app" . | indent 4 }}
+data:
+  myvalue: "Hello World"
+  {{- $relname := default "unknown release name" .Release.Name -}}
+  {{- with .Values.favorite }}
+  toppings_list: |-
+    {{- range .pizzaToppings }}
+    - {{ . | title | quote }}
+    {{- end }}
+  toppings_objec: |-
+    {{- range $idx, $val := .pizzaToppings }}
+      {{ $idx }}: {{ $val | title | quote }}
+    {{- end }}
+  {{- range $key, $val := .things }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+  drink: {{ .drink | quote }}
+  {{- if eq .drink "coffee" }}
+  mug: {{ true | quote }}
+  {{- end }}
+  food: {{ .food | upper | quote }}
+  release: {{ $relname }}
+  release_global: {{ $.Release.Name }}
+  {{- end }}
+{{ include "mychart.app" . | indent 2 }}
+  sizes: |-
+  {{- range tuple "small" "medium" "large" }}
+    - {{ . | quote }}
+  {{- end }}
